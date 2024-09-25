@@ -7,6 +7,7 @@ function Form(props) {
     job: ""
   });
 
+  // updates name/job in form if input is changed
   function handleChange(event) {
     const { name, value } = event.target;
     if (name === "job")
@@ -14,6 +15,7 @@ function Form(props) {
     else setPerson({ name: value, job: person["job"] });
   }
 
+  // resets form fields to be empty
   function submitForm() {
     props.handleSubmit(person);
     setPerson({ name: "", job: "" });

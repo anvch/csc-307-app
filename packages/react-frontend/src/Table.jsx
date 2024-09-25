@@ -12,6 +12,8 @@ function TableHeader() {
   );
 }
 
+// take in all characters from character data
+// create rows for each character (map)
 function TableBody(props) {
   const rows = props.characterData.map((row, index) => {
     return (
