@@ -4,7 +4,9 @@
   "type": "module",
   "main": "backend.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1", 
+    "dev": "npx nodemon backend.js export DEBUG='express:router'",
+    "start": "node backend.js export DEBUG='express:router'"
   },
   "author": "",
   "license": "ISC",
@@ -12,4 +14,5 @@
   "dependencies": {
     "express": "^4.21.0"
   }
+  
 }
