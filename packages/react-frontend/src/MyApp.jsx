@@ -9,11 +9,22 @@ function MyApp() {
   // remove the character at the index from the button clicked
   function removeOneCharacter(index) {
     // filter the array to remove the character at the index given
+    const id = characters[index].id;
     const updated = characters.filter((character, i) => {
       return i !== index;
     });
-    // update the array to the new array
-    setCharacters(updated);
+    
+    fetch(`http://localhost:8000/users/${id}`, {
+      method: "DELETE"
+    })
+    .then(response => {
+      if(response.status === 204) {
+        console.log(response.status);
+        setCharacters(updated);
+      } else {
+        console.log(response.status);
+      }
+    });
   }
 
   // add the current form information to the characters array

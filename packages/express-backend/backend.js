@@ -70,12 +70,12 @@ const addUser = (user) => {
 };
 
 const deleteUser = (id) => {
-  users["users_list"] = users["users_list"].filter((user) => user["id"] !== id);
+  users["users_list"] = users["users_list"].filter((user) => user["id"] !== id.toString());
   return "deleted";
 }
 
 const generateId = () => {
-  return Math.random();
+  return String(Math.random());
 }
 
 app.get("/users", (req, res) => {
@@ -114,10 +114,11 @@ app.post("/users", (req, res) => {
 
 app.delete("/users/:id", (req, res) => {
   const id = req.params["id"]; //or req.params.id
+  console.log(id);
   let result = deleteUser(id);
   if (result === undefined) {
     res.status(404).send("Resource not found.");
   } else {
-    res.send(result);
+    res.status(204).send();
   }
 });
