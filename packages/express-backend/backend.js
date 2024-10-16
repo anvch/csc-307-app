@@ -19,7 +19,7 @@ app.listen(port, () => {
 });
 
 const users = {
-  
+
   users_list: [
     {
       id: "xyz789",
@@ -74,6 +74,10 @@ const deleteUser = (id) => {
   return "deleted";
 }
 
+const generateId = () => {
+  return Math.random();
+}
+
 app.get("/users", (req, res) => {
   const name = req.query.name;
   const job = req.query.job;
@@ -103,8 +107,9 @@ app.get("/users/:id", (req, res) => {
 
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
+  userToAdd.id = generateId();
   addUser(userToAdd);
-  res.send();
+  res.status(201).send(userToAdd);
 });
 
 app.delete("/users/:id", (req, res) => {

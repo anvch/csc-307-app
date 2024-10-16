@@ -19,7 +19,7 @@ function MyApp() {
   // add the current form information to the characters array
   function updateList(person) {
     postUser(person)
-      .then(() => setCharacters([...characters, person]))
+      .then((newUser) => setCharacters([...characters, newUser]))
       .catch((error) => {
         console.log(error);
       });
@@ -40,14 +40,19 @@ function MyApp() {
   }, []);
 
   function postUser(person) {
-    const promise = fetch("Http://localhost:8000/users", {
+    const promise = fetch("http://localhost:8000/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(person)
-    });
-  
+    })
+    .then(response => {
+      if(response.status === 201) {
+       return response.json()
+      }
+    })
+
     return promise;
   }
 
