@@ -14,7 +14,7 @@ mongoose
   .catch((error) => console.log(error));
 const app = express();
 const port = 8000;
-const { addUser, getUsers, findUserById, findUserByName, findUserByJob } = userService;
+const { addUser, getUsers, findUserById, findUserByName, findUserByJob, deleteUser } = userService;
 
 app.use(cors());
 
@@ -29,12 +29,6 @@ app.listen(port, () => {
     `Example app listening at http://localhost:${port}`
   );
 });
-
-const deleteUser = (id) => {
-  users["users_list"] = users["users_list"].filter((user) => user["id"] !== id.toString());
-  return "deleted";
-}
-
 
 app.get("/users", (req, res) => {
   const name = req.query.name;
@@ -61,6 +55,7 @@ app.get("/users/:id", (req, res) => {
 
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
+  
   addUser(userToAdd)
     .then(result => {res.status(201).send(result);})
     .catch((error) => {
@@ -71,11 +66,13 @@ app.post("/users", (req, res) => {
 
 app.delete("/users/:id", (req, res) => {
   const id = req.params["id"]; //or req.params.id
-  console.log(id);
-  let result = deleteUser(id);
-  if (result === undefined) {
-    res.status(404).send("Resource not found.");
-  } else {
-    res.status(204).send();
-  }
+
+  deleteUser(id)
+    .then(result => {
+      if (result === undefined) {
+        res.status(404).send("Resource not found.");
+      } else {
+        res.status(204).send();
+      }
+    })
 });
