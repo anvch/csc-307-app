@@ -44,7 +44,10 @@ function MyApp() {
   useEffect(() => {
     fetchUsers()
       .then((res) => res.json())
-      .then((json) => setCharacters(json["users_list"]))
+      .then((json) => {
+        console.log(json);
+        setCharacters(json);
+  })
       .catch((error) => {
         console.log(error);
       });
@@ -69,7 +72,7 @@ function MyApp() {
 
   return (
     <div className="container">
-      <Table characterData={characters} removeCharacter={removeOneCharacter} />
+      {<Table characterData={characters} removeCharacter={removeOneCharacter} />}
       <Form handleSubmit={updateList}/>
     </div>
   );
