@@ -9,7 +9,7 @@ function MyApp() {
   // remove the character at the index from the button clicked
   function removeOneCharacter(index) {
     // filter the array to remove the character at the index given
-    const id = characters[index].id;
+    const id = characters[index]._id;
     const updated = characters.filter((character, i) => {
       return i !== index;
     });
